@@ -1,2 +1,2 @@
-# vae_tutorial
-Caffe code to accompany my Tutorial on Variational Autoencoders
+# Tutorial on Variational Autoencoders
+Under Construction

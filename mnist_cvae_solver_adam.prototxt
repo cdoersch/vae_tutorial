@@ -1,0 +1,9 @@
+net: "mnist_cvae.prototxt"
+base_lr: 0.001
+lr_policy: "fixed"
+display: 100
+max_iter: 60000
+weight_decay: 0.0005
+snapshot: 10000
+snapshot_prefix: "snapshots/mnist_cvae"
+type: "Adam"

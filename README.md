@@ -44,7 +44,7 @@ No additional Caffe layers are needed to make a VAE/CVAE work in Caffe.  The onl
     $CAFFE_PATH/build/tools/caffe train --solver=mnist_vae_solver_adam.prototxt
   ```
 
-### Running the VAE
+### Running the CVAE
   1. Edit mnist_cvae.prototxt and enter the correct "source" path for BOTH training and testing lmdb's (line 13 AND 29)
 
   2. Run the code.  Make sure $CAFFE_PATH/python is on your PYTHONPATH.

@@ -271,7 +271,10 @@ layer{
   include {
     phase: TRAIN
   }
-  loss_weight: 0.01 # 1 over batch_size
+  loss_weight: 0.01 # 1 over batch_size, because 
+                    # SigmoidCrossEntropyLoss
+                    # normalizes by batch_size but
+                    # Reduction does not.
 }
 layer{
   name: "mu_dummy" # can't call this 'mu' or

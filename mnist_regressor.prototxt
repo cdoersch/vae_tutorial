@@ -35,9 +35,9 @@ layer {
   name: "datasplit"
   type: "Slice"
   bottom: "data"
-  top: "data_left1"
-  top: "data_right_nosamp"
-  top: "data_left2"
+  top: "data_left"
+  top: "data_center"
+  top: "data_right"
   slice_param{
     axis: 3
     slice_point: 13
@@ -66,7 +66,7 @@ layer {
   name: "dataconcat"
   type: "Concat"
   bottom: "uniform"
-  bottom: "data_right_nosamp"
+  bottom: "data_center"
   top: "dataconcat"
   concat_param {
     axis: 3
@@ -76,26 +76,26 @@ layer {
   name: "data_right"
   type: "ArgMax"
   bottom: "dataconcat"
-  top: "data_right"
+  top: "data_center_binary"
   argmax_param {
     axis: 3
   }
 }
 layer {
-  name: "data_left"
+  name: "data_target"
   type: "Concat"
-  bottom: "data_left1"
-  bottom: "data_left2"
+  bottom: "data_left"
+  bottom: "data_right"
   concat_param {
     axis: 3
   }
-  top: "data_left"
+  top: "data_target"
 }
 layer {
-  name: "flatdata_left"
+  name: "flatdata_target"
   type: "Flatten"
-  bottom: "data_left"
-  top: "flatdata_left"
+  bottom: "data_target"
+  top: "flatdata_target"
   include {
     phase: TRAIN
   }
@@ -103,7 +103,7 @@ layer {
 layer {
   name: "silence_left"
   type: "Silence"
-  bottom: "data_left"
+  bottom: "data_target"
   include {
     phase: TEST
   }
@@ -111,7 +111,7 @@ layer {
 layer {
   name: "input1"
   type: "InnerProduct"
-  bottom: "data_right"
+  bottom: "data_center_binary"
   top: "input1"
   param {
     lr_mult: 1
@@ -332,7 +332,7 @@ layer {
   name: "loss"
   type: "SigmoidCrossEntropyLoss"
   bottom: "decode1"
-  bottom: "flatdata_left"
+  bottom: "flatdata_target"
   top: "cross_entropy_loss"
   loss_weight: 1
   include {
@@ -349,7 +349,7 @@ layer {
   name: "loss"
   type: "EuclideanLoss"
   bottom: "decode1neuron"
-  bottom: "flatdata_left"
+  bottom: "flatdata_target"
   top: "l2_error"
   loss_weight: 0
   include {

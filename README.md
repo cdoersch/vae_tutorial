@@ -7,6 +7,43 @@ This code contains two demos.  The first is a standard Variational Autoencoder (
 
 No additional Caffe layers are needed to make a VAE/CVAE work in Caffe.  The only requirements are a working Caffe/pycaffe installation.  A GPU will make the experiments run faster, but is not necessary (comment out set_mode_gpu() in the python files if you don't have one).  On my system (a Titan X), these experiments all complete in about 10 minutes.
 
+### VAE and CVAE Network Structure
+  The code will generate a network drawing, but for convenience I've included the result of that drawing here.  This is for the VAE:
+
+<table>
+  <tr>
+    <td colspan=2 ><p align="center">VAE</p></td>
+  </tr>
+  <tr>
+    <td><p align="center">Train Net</p></td>
+    <td><p align="center">Test Net</p></td>
+  </tr>
+  <tr>
+    <td><p align="center"><a href="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/vae_train_net.png"><img style="height:300px" src="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/vae_train_net.png" height=300 /></a></p></td>
+    <td><p align="center"><a href="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/vae_test_net.png"><img style="height:300px" src="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/vae_test_net.png" height=300 /></a></p></td>
+  </tr>
+</table>
+
+Here is a side-by-side comparison between the CVAE and regressor which solve the same problem.  Note that both networks have several initial layers for constructing the input and output data that's used to train the network.
+
+<table>
+  <tr>
+    <td colspan=4 ><p align="center">CVAE and Regressor</p></td>
+  </tr>
+  <tr>
+    <td><p align="center">CVAE Train Net</p></td>
+    <td><p align="center">CVAE Test Net</p></td>
+    <td><p align="center">Regressor Train Net</p></td>
+    <td><p align="center">Regressor Test Net</p></td>
+  </tr>
+  <tr>
+    <td style="text-align:center"><p align="center"><a href="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/cvae_train_net.png"><img style="height:300px" src="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/cvae_train_net.png" height=300 /></a></p></td>
+    <td style="text-align:center"><p align="center"><a href="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/cvae_test_net.png"><img style="height:300px" src="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/cvae_test_net.png" height=300 /></a></p></td>
+    <td style="text-align:center"><p align="center"><a href="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/regressor_train_net.png"><img style="height:300px" src="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/regressor_train_net.png" height=300 /></a></p></td>
+    <td style="text-align:center"><p align="center"><a href="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/regressor_test_net.png"><img style="height:300px" src="https://raw.githubusercontent.com/cdoersch/vae_tutorial/master/net_drawings/regressor_test_net.png" height=300 /></a></p></td>
+  </tr>
+</table>
+
 ### Setup
   1. Install Caffe (see: [Caffe installation instructions](http://caffe.berkeleyvision.org/installation.html)).  Build `Caffe` and `pycaffe`.  For this readme, we'll call the installation path $CAFFE_PATH.
 
@@ -39,7 +76,7 @@ No additional Caffe layers are needed to make a VAE/CVAE work in Caffe.  The onl
     python mnist_vae.py
   ```
 
-  Note that the python is only required for generating the visualization: the net can also be trained simply by calling
+  Note that the python is only required for generating the visualizations: the net can also be trained simply by calling
   ```Shell
     $CAFFE_PATH/build/tools/caffe train --solver=mnist_vae_solver_adam.prototxt
   ```
@@ -54,7 +91,7 @@ No additional Caffe layers are needed to make a VAE/CVAE work in Caffe.  The onl
     python mnist_cvae.py
   ```
 
-  Note that the python is only required for generating the visualization: the net can also be trained simply by calling
+  Note that the python is only required for generating the visualizations: the net can also be trained simply by calling
   ```Shell
     $CAFFE_PATH/build/tools/caffe train --solver=mnist_cvae_solver_adam.prototxt
   ```

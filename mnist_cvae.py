@@ -4,16 +4,21 @@ import caffe
 import caffe.draw
 from scipy import misc
 import numpy as np
-#from caffe.proto import caffe_pb2
-#from google.protobuf import text_format
+from caffe.proto import caffe_pb2
+from google.protobuf import text_format
 
 solver_fn='mnist_cvae_solver_adam.prototxt'
 net_fn='mnist_cvae.prototxt'
 
-# TODO(cdoersch): make caffe draw_net understand phases
-#net_proto = caffe_pb2.NetParameter()
-#text_format.Merge(open(net_fn).read(), net_proto)
-#caffe.draw.draw_net_to_file (net_proto, 'train_net.png', 'TB')
+try:
+  net_proto = caffe_pb2.NetParameter()
+  text_format.Merge(open(net_fn).read(), net_proto)
+  caffe.draw.draw_net_to_file (net_proto, 'cvae_train_net.png', 'TB',
+                               phase=caffe.TRAIN)
+  caffe.draw.draw_net_to_file (net_proto, 'cvae_test_net.png', 'TB',
+                               phase=caffe.TEST)
+except:
+  print("Unable to draw network.  Perhaps your caffe.draw doesn't support phases?");
 
 if not os.path.exists("snapshots"):
   os.makedirs("snapshots")

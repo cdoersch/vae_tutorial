@@ -1,3 +1,4 @@
 snapshots
 *.png
+!net_drawings/*.png
 *.pyc

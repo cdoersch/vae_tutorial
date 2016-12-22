@@ -496,6 +496,9 @@ layer {
     }
   }
 }
+
+# We use a SigmoidCrossEntropyLoss because the data is constrained between
+# 0 and 1.  See section 4.1 of the tutorial for a probabilistic interpretation.
 layer {
   name: "loss"
   type: "SigmoidCrossEntropyLoss"
@@ -507,6 +510,9 @@ layer {
     phase: TRAIN
   }
 }
+
+# Include a Euclidean loss for reference.  Note that the loss weight is 0,
+# so this loss has no effect on training.
 layer {
   name: "decode1neuron"
   type: "Sigmoid"
